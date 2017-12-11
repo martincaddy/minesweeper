@@ -1,28 +1,4 @@
-const printBoard = board => {
-  console.log(board.map (row => row.join(' | ')).join('\n'));
-};
-
-class Game {
-  constructor(numberOfRows, numberOfColumns, numberOfBombs) {
-    this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
-  }
-  playMove(rowIndex, columnIndex) {
-      this._board.flipTile(rowIndex, columnIndex);
-
-    if(this._board.playerBoard[rowIndex][columnIndex] === 'B') {
-      console.log('Games over! Here was the final board: ');
-      this._board.print();
-    } else if (this._board.hasNonBombEmptySpaces())
-    console.log('Current Board: ');
-    this._board.print();
-  } else {
-    console.log('Congratulations on winning! Here was your winning board: ');
-    this._board.print();
-  }
-}
-};
-
-class Board {
+export class Board {
   constructor(numberOfRows, numberOfColumns, numberOfBombs) {
     this._numberOfBombs = numberOfBombs;
     this._numberOfEmptySpaces = numberOfRows * numberOfColumns;
@@ -43,7 +19,6 @@ class Board {
 
     const numberOfRows = this._bombBoard.length;
     const numberOfColumns = this._bombBoard[0].length;
-    
     let numberOfSurroundingBombs = 0;
     offsets.forEach(offset => {
       const neighborRowIndex = flipRow + offset[0];
@@ -58,7 +33,6 @@ class Board {
 
     return numberOfSurroundingBombs;
   }
-
   flipTile(flipRow, flipColumn) {
     if (this._playerBoard[flipRow][flipColumn] !== ' ') {
     return;
@@ -98,7 +72,6 @@ class Board {
     board.push(row);
   }
 
-
     let numberOfBombsPlaced = 0;
     while (numberOfBombsPlaced < numberOfBombs) {
       const randomRowIndex = Math.floor(Math.random() * numberOfRows);
@@ -111,4 +84,4 @@ class Board {
     }
   return board;
   }
-}
+};
